@@ -282,6 +282,75 @@ ISC License
 
 Your Name - SAURAV MISHRA
 
+## 🐳 Docker Setup
+
+### Prerequisites
+
+- Docker Desktop installed
+- Docker Compose installed
+
+### Quick Start with Docker
+
+1. Create a `.env` file in the project root:
+
+```env
+JWT_SECRET=your_jwt_secret_key
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+```
+
+2. Build and run all services:
+
+```
+bash
+docker-compose up --build
+```
+
+3. Access the application:
+
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:3000
+- MongoDB: localhost:27017
+
+### Docker Commands
+
+```bash
+# Start all services
+docker-compose up
+
+# Start in detached mode
+docker-compose up -d
+
+# Stop all services
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Rebuild containers
+docker-compose build --no-cache
+```
+
+### Docker Services
+
+| Service  | Port  | Description                       |
+| -------- | ----- | --------------------------------- |
+| frontend | 5173  | React frontend (served via Nginx) |
+| backend  | 3000  | Express API server                |
+| mongodb  | 27017 | MongoDB database                  |
+
+### Using External MongoDB
+
+If you want to use an external MongoDB instance (like MongoDB Atlas), update the `docker-compose.yml`:
+
+```
+yaml
+backend:
+  environment:
+    - MONGODB_URI=your_mongodb_connection_string
+```
+
 ## 🙏 Acknowledgments
 
 - Radix UI for accessible components
