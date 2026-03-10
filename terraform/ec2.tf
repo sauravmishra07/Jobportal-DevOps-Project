@@ -71,3 +71,19 @@ resource "aws_security_group" "allow_user_to_connect" {
     Name = "jobPortalSecurity"
   }
 }
+
+resource "aws_instance" "testinstance" {
+    ami = data.aws_ami.os_image.id
+    instance_type = var.instance_type
+    key_name = aws_key_pair.deployer.key_name
+    security_groups = [aws_security_group.allow_user_to_connect.name]
+    user_data = file("$(path.module)/install-tool.sh")
+    tags = {
+        Name = "Jenkins-Automate"
+    }
+    root_block_device {
+      volume_size = 20
+      volume_type = "gp3"
+    }
+  
+}
