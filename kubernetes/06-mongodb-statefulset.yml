@@ -31,11 +31,4 @@ spec:
               memory: "512Mi"
               cpu: "500m"
   volumeClaimTemplates:
-    - metadata:
-        name: mongodb-storage
-      spec:
-        accessModes: 
-          - ReadWriteOnce
-        resources: 
-          requests: 
-            storage: 5Gi
+    claimName: mongodb-pvc

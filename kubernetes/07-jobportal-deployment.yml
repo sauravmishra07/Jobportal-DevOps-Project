@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata: 
+  name: jobportal-deployment
+  namespace: jobportal
+spec: 
+  replicas: 3
+  selector: 
+    matchLabels: 
+      app: jobportal
+    template: 
+      metadata: 
+        labels: 
+          app: jobportal
+      spec: 
+        containers: 
+          - name: jobportal
+            image: saurav8587/jobportal:latest
+            ports: 
+              - containerPort: 3000
+            envFrom: 
+              - configMapRef: 
+                  name: jobportal-config
+            resources:
+              requests:
+                memory: "256Mi"
+                cpu: "200m"
+              limits:
+                memory: "512Mi"
+                cpu: "500m"
+              livenessProbe:
+                httpGet: /liveness
+                port: 3000
+              readinessProbe:
+                httpGet: /readiness
+                port: 3000
