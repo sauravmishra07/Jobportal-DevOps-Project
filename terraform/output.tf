@@ -27,5 +27,5 @@ output "public_ip" {
 
 output "eks_node_group_public_ips" {
   description = "Public IPs of the EKS node group instances"
-  value       = data.aws_instances.eks_nodes.public_ips
+  value       = data.aws_instance.eks_node.public_ips
 }
