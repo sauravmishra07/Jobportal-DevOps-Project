@@ -1,59 +1,73 @@
 module "eks" {
 
-    source = "terraform-aws-modules/eks/aws"
-    version = "19.15.1"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "19.15.1"
 
-    cluster_name    = local.name
-    cluster_endpoint_public_access =  true
+  cluster_name                   = local.name
+  cluster_endpoint_public_access = true
 
-    cluster_addons = {
-        coredns = {
-            most_recent = true
-        }
-
-        kube-proxy = {
-            most_recent = true
-        }
-
-        vpc-cni = {
-            most_recent = true
-        }
+  cluster_addons = {
+    coredns = {
+      most_recent = true
     }
-  
-    vpc_id     = module.vpc.vpc_id
-    subnet_ids = module.vpc.public_subnets
-    control_plane_subnet_ids = module.vpc.public_subnets
-
-    # EKS managed Node Group(s)
-
-    eks_managed_node_group_defaults = {
-
-        instance_types = ["m7i-flex.large"]
-        capacity_type = "SPOT"
-
-        disk_size = 30
-        use_custom_node_group_name = false
-
-
-        tags = {
-            Name = "jobportal-dem-ng"
-            Environment = "development"
-            ExtraTag = "jobportal-app"
-        }
+    kube-proxy = {
+      most_recent = true
     }
-    
-    tags = local.tags
+    vpc-cni = {
+      most_recent = true
+    }
+  }
+
+  vpc_id                   = module.vpc.vpc_id
+  subnet_ids               = module.vpc.public_subnets
+  control_plane_subnet_ids = module.vpc.intra_subnets
+
+  # EKS Managed Node Group(s)
+
+  eks_managed_node_group_defaults = {
+
+    instance_types = ["c7i-flex.large"]
+
+    attach_cluster_primary_security_group = true
+
+  }
+
+
+  eks_managed_node_groups = {
+
+    tws-demo-ng = {
+      min_size     = 2
+      max_size     = 3
+      desired_size = 2
+
+      instance_types = ["t3.small"]
+      capacity_type  = "SPOT"
+
+      disk_size = 30 
+      use_custom_launch_template = false  # Important to apply disk size!
+
+      tags = {
+        Name = "jobportal-demo-ng"
+        Environment = "dev"
+        ExtraTag = "jobportal-app"
+      }
+    }
+  }
+ 
+  tags = local.tags
+
+
 }
 
-data "aws_instance" "eks_node" {
- instance_tags = {
-    "eks:cluster-name" = module.eks.cluster_id
- }
+data "aws_instances" "eks_nodes" {
+  instance_tags = {
+    "eks:cluster-name" = module.eks.cluster_name
+  }
 
- filter {
-   name = "instance-state-name"
-   values = ["running"]
- }
-  
-  depends_on = [module.eks ]
+  filter {
+    name   = "instance-state-name"
+    values = ["running"]
+  }
+
+  depends_on = [module.eks]
 }
