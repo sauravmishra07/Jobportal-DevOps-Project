@@ -1,6 +1,22 @@
+terraform {
+  required_version = ">= 1.3"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 6.0"
+    }
+
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0"
+    }
+  }
+}
+
 locals {
   region          = "eu-west-1"
-  name            = "tws-eks-cluster"
+  name            = "jobportal-eks-cluster"
   vpc_cidr        = "10.0.0.0/16"
   azs             = ["eu-west-1a", "eu-west-1b"]
   public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"]
@@ -16,6 +32,4 @@ provider "aws" {
   region = local.region
 }
 
-provider "tls" {
-  # Configuration is not required for the tls provider
-}
+provider "tls" {}
