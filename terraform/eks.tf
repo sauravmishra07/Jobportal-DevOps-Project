@@ -48,8 +48,9 @@ module "eks" {
 }
 data "aws_instances" "eks_nodes" {
 
-  instance_tags = {
-    "eks:cluster-name" = module.eks.cluster_name
+  filter {
+    name   = "tag:kubernetes.io/cluster/${module.eks.cluster_name}"
+    values = ["owned", "shared"]
   }
 
   filter {

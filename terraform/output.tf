@@ -29,3 +29,7 @@ output "eks_node_group_public_ips" {
   description = "Public IPs of the EKS worker nodes"
   value = data.aws_instances.eks_nodes.public_ips
 }
+
+output "eks_node_group_private_ips" {
+  value = data.aws_instances.eks_nodes.private_ips
+}
