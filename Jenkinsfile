@@ -1,12 +1,11 @@
 @Library('Shared') _
 
 pipeline {
-agent any
+    agent any
 
     environment {
-        // Update the main app image name to match the deployment files
         DOCKER_IMAGE_NAME = "sauravmishra07/jobportal-app"
-        DOCKER_IMAGE_TAG  = "${BUILD_NUMBER}"
+        DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
         GITHUB_CREDENTIALS = credentials('github-credentials')
         GITHUB_BRANCH = "main"
     }
@@ -15,43 +14,48 @@ agent any
 
         stage('Cleanup Workspace') {
             steps {
-                script {
-                    cleanWs()
-                }
+                cleanWs()
             }
         }
 
         stage('Clone Repository') {
             steps {
+                git branch: env.GITHUB_BRANCH,
+                    credentialsId: env.GITHUB_CREDENTIALS,
+                    url: 'https://github.com/sauravmishra07/Jobportal-DevOps-Project.git'
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
                 script {
-                    clone(
-                        'https://github.com/sauravmishra07/Jobportal-DevOps-Project.git',
-                        "main"
+                    // Build frontend image
+                    def frontendImage = docker.build(
+                        "${env.DOCKER_IMAGE_NAME}-frontend:${env.DOCKER_IMAGE_TAG}",
+                        "-f frontend/Dockerfile frontend"
+                    )
+
+                    // Build backend image
+                    def backendImage = docker.build(
+                        "${env.DOCKER_IMAGE_NAME}-backend:${env.DOCKER_IMAGE_TAG}",
+                        "-f backend/Dockerfile backend"
                     )
                 }
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Push Docker Images') {
             steps {
                 script {
-                    docker_build(
-                        imageName: env.DOCKER_IMAGE_NAME,
-                        imageTag: env.DOCKER_IMAGE_TAG,
-                        dockerfile: 'Dockerfile',
-                        context: '.'
-                    )
-                }
-            }
-        }
+                    docker.withRegistry('', 'docker-hub-credentials') {
+                        // Push frontend
+                        docker.image("${env.DOCKER_IMAGE_NAME}-frontend:${env.DOCKER_IMAGE_TAG}").push()
+                        docker.image("${env.DOCKER_IMAGE_NAME}-frontend:${env.DOCKER_IMAGE_TAG}").push('latest')
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker_push(
-                        imageName: env.DOCKER_IMAGE_NAME,
-                        imageTag: env.DOCKER_IMAGE_TAG
-                    )
+                        // Push backend
+                        docker.image("${env.DOCKER_IMAGE_NAME}-backend:${env.DOCKER_IMAGE_TAG}").push()
+                        docker.image("${env.DOCKER_IMAGE_NAME}-backend:${env.DOCKER_IMAGE_TAG}").push('latest')
+                    }
                 }
             }
         }
@@ -70,5 +74,4 @@ agent any
             }
         }
     }
-
 }
