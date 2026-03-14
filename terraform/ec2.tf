@@ -71,11 +71,11 @@ resource "aws_security_group" "allow_user_to_connect" {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = ["0..0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = "jobPortalSecurity"
+    Name = "jobPortalSg"
   }
 }
 
@@ -86,7 +86,7 @@ resource "aws_instance" "testinstance" {
   vpc_security_group_ids = [aws_security_group.allow_user_to_connect.id]
   user_data              = file("${path.module}/install-tool.sh")
   tags = {
-    Name = "Jenkins-Automate"
+    Name = "EC2-jenkins"
   }
   root_block_device {
     volume_size = 20

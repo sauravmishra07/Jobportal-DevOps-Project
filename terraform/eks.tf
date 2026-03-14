@@ -37,7 +37,7 @@ module "eks" {
       disk_size = 30
 
       tags = {
-        Name        = "jobportal-demo-ng"
+        Name        = "jobportal-ng"
         Environment = "dev"
         ExtraTag    = "jobportal-app"
       }
