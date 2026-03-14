@@ -14,11 +14,11 @@ const app = express();
 
 // middleware
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const corsOptions = {
-    origin: process.env.CLIENT_URL ,
-    credentials:true
+    origin: process.env.CLIENT_URL,
+    credentials: true
 }
 
 app.use(cors(corsOptions));
@@ -34,7 +34,18 @@ app.use("/api/v1/application", applicationRoute);
 
 
 
-app.listen(PORT,()=>{
-    connectDB();
+app.listen(PORT, async () => {
+    await connectDB();
+
+    // Auto-seed if no data (optional - comment out after first run)
+    const jobCount = await (await import('./models/job.model.js')).Job.countDocuments();
+    if (jobCount === 0) {
+        console.log('No data found, running seed...');
+        const { runSeed } = await import('./migrations/001-seed-data.js');
+        await runSeed();
+    } else {
+        console.log(`Found ${jobCount} jobs, skipping seed.`);
+    }
+
     console.log(`✅ Server running at port ${PORT}`);
 })

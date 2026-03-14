@@ -1,0 +1,27 @@
+[
+  {
+    "fullname": "John Doe",
+    "email": "john.doe@example.com",
+    "phoneNumber": 1234567890,
+    "password": "$2b$10$samplehashedpassword",
+    "role": "student",
+    "profile": {
+      "bio": "Passionate full-stack developer seeking opportunities.",
+      "skills": ["React", "Node.js", "MongoDB", "JavaScript"],
+      "resume": "https://example.com/resume1.pdf",
+      "resumeOriginalName": "john_doe_resume.pdf",
+      "profilePhoto": "https://example.com/photo1.jpg"
+    }
+  },
+  {
+    "fullname": "Jane Smith",
+    "email": "jane.smith@techcorp.com",
+    "phoneNumber": 9876543210,
+    "password": "$2b$10$samplehashedpassword",
+    "role": "recruiter",
+    "profile": {
+      "bio": "HR Manager at TechCorp.",
+      "profilePhoto": "https://example.com/photo2.jpg"
+    }
+  }
+]

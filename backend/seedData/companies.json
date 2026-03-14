@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Infosys Ltd.",
+    "description": "Global IT services and consulting company providing digital transformation solutions.",
+    "website": "https://www.infosys.com",
+    "location": "Bengaluru, India",
+    "logo": "https://logo.clearbit.com/infosys.com",
+    "userId": null
+  },
+  {
+    "name": "Tata Consultancy Services",
+    "description": "Leading Indian multinational IT services and consulting company.",
+    "website": "https://www.tcs.com",
+    "location": "Mumbai, India",
+    "logo": "https://logo.clearbit.com/tcs.com",
+    "userId": null
+  },
+  {
+    "name": "Wipro Ltd.",
+    "description": "Technology services and consulting company focused on digital transformation.",
+    "website": "https://www.wipro.com",
+    "location": "Bengaluru, India",
+    "logo": "https://logo.clearbit.com/wipro.com",
+    "userId": null
+  },
+  {
+    "name": "HCLTech",
+    "description": "Global technology company delivering software, infrastructure, and engineering services.",
+    "website": "https://www.hcltech.com",
+    "location": "Noida, India",
+    "logo": "https://logo.clearbit.com/hcltech.com",
+    "userId": null
+  },
+  {
+    "name": "Zoho Corporation",
+    "description": "Indian SaaS company known for business, productivity, and collaboration software.",
+    "website": "https://www.zoho.com",
+    "location": "Chennai, India",
+    "logo": "https://logo.clearbit.com/zoho.com",
+    "userId": null
+  },
+  {
+    "name": "Flipkart",
+    "description": "Major Indian e-commerce company offering a wide range of products online.",
+    "website": "https://www.flipkart.com",
+    "location": "Bengaluru, India",
+    "logo": "https://logo.clearbit.com/flipkart.com",
+    "userId": null
+  },
+  {
+    "name": "Paytm",
+    "description": "Leading Indian fintech company providing digital payments and financial services.",
+    "website": "https://paytm.com",
+    "location": "Noida, India",
+    "logo": "https://logo.clearbit.com/paytm.com",
+    "userId": null
+  },
+  {
+    "name": "Freshworks",
+    "description": "Customer engagement software company offering SaaS products for businesses.",
+    "website": "https://www.freshworks.com",
+    "location": "Chennai, India",
+    "logo": "https://logo.clearbit.com/freshworks.com",
+    "userId": null
+  },
+  {
+    "name": "Razorpay",
+    "description": "Indian fintech company providing payment gateway and banking solutions for businesses.",
+    "website": "https://razorpay.com",
+    "location": "Bengaluru, India",
+    "logo": "https://logo.clearbit.com/razorpay.com",
+    "userId": null
+  },
+  {
+    "name": "Ola",
+    "description": "Indian ride-hailing and mobility platform offering transportation services.",
+    "website": "https://www.olacabs.com",
+    "location": "Bengaluru, India",
+    "logo": "https://logo.clearbit.com/olacabs.com",
+    "userId": null
+  }
+]
