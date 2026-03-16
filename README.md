@@ -412,6 +412,6 @@ kubectl get challenges -n jobportal
 - NodePort: `http://54.76.194.89:30000`
 - Ingress: `http://54.76.194.89.nip.io`
 
-![JobPortal Deployed](./frontend/public/jobportal-screenshot.png)
+![JobPortal Deployed]
 
 ### Production Ready Job Portal ✅
