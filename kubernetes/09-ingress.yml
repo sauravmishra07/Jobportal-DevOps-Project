@@ -13,7 +13,7 @@ spec:
       - jobportal.nip.io
     secretName: jobportal-tls-secret
   rules: 
-    - host: jobportal.nip.io
+    - host: 54.76.194.89.nip.io
       http: 
         paths:
         - path: /
